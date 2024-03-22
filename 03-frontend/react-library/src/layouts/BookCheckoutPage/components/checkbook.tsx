@@ -1,8 +1,9 @@
 import { Link } from "react-router-dom";
 import BookModel from "../../../models/BookModel";
+import { StarReview } from "../../utils/StarReview";
 
 export const Checkbook :React.FC<{Book:BookModel | undefined,mobile :boolean,currentloanscount : number , isauthenticated: any , isCheckedout : boolean
-checkoutbook : any}> =(props)=>{
+checkoutbook : any , isreviewed:boolean,submitReview:any} > =(props)=>{
     function buttonrender(){
         if(props.isauthenticated){
             if(!props.isCheckedout && props.currentloanscount<5){
@@ -16,7 +17,20 @@ checkoutbook : any}> =(props)=>{
             }
         }
         return(<Link to={'/login'} className="btn btn-success btn-lg">Sign In</Link>)
-
+    }
+    function setReview(){
+        if(props.isauthenticated && !props.isreviewed ){
+            return (
+                <p>
+                <StarReview submitReview={props.submitReview}/></p>
+            )
+        }
+        else if(props.isauthenticated && props.isreviewed){
+            return(<p>Thank You for the review</p>)
+        }
+        else{
+            return(<p><b>Sign In</b> to leave a review</p>)
+        }
     }
     return(
         <div className={props.mobile? 'card d-flex mt-5 ': 'card col-3 container d-flex mb-5'}>
@@ -32,7 +46,7 @@ checkoutbook : any}> =(props)=>{
             </div>
             {buttonrender()}<hr />
             <p className="mt-3"> This number can change until placing order has been completed</p>
-            <p>Sign to leave a review</p>
+            {setReview()}
             </div>
         </div>
     );

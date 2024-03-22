@@ -3,7 +3,7 @@ export const Star : React.FC<{starRating : number,size :number}> = (props) =>{
     let fullStars=0;
     let halfstars=0;
     let emptystars=0;
-    if(rating !==undefined && rating > 0 && rating <=5){
+    if(rating !==undefined && rating >= 0 && rating <=5){
         for (let i=0 ; i<=4;i++){
             if(rating-1>=0){
                 fullStars=fullStars+1;

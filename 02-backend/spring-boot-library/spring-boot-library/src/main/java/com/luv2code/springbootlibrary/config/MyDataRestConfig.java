@@ -1,6 +1,7 @@
 package com.luv2code.springbootlibrary.config;
 
 import com.luv2code.springbootlibrary.entity.Book;
+import com.luv2code.springbootlibrary.entity.Message;
 import com.luv2code.springbootlibrary.entity.Review;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
@@ -10,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 @Configuration
 public class MyDataRestConfig implements RepositoryRestConfigurer {
-    private String theAllowedOrigins = "http://localhost:3000";
+    private String theAllowedOrigins = "https://localhost:3000";
     @Override
     public void configureRepositoryRestConfiguration(RepositoryRestConfiguration config,
                                                   CorsRegistry cors){
@@ -22,8 +23,10 @@ public class MyDataRestConfig implements RepositoryRestConfigurer {
         };
         config.exposeIdsFor(Book.class);
         config.exposeIdsFor(Review.class);
+        config.exposeIdsFor(Message.class);
         disableHttpMethods(Book.class , config,theUnSupportedActions);
         disableHttpMethods(Review.class, config,theUnSupportedActions);
+        disableHttpMethods(Message.class,config,theUnSupportedActions);
 
         cors.addMapping(config.getBasePath() + "/**").allowedOrigins(theAllowedOrigins).allowedHeaders("*");
     }
