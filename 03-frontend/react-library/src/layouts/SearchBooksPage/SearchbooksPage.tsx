@@ -25,7 +25,6 @@ export const SearchBooksPage= () =>{
             }else{
                 url=baseurl +searchurl;
             }
-             
             const response = await fetch(url);
             if (!response.ok){
                 throw new Error ('something is wrong');
